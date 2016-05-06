@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+<body>
+<textarea id="input_lang" style=";height:200px;width:400px;" >asdb</textarea>
+<!--<input type="textarea" id="input_lang" style=";height:200px;width:400px;" value="sds" />-->
+<textarea id = "textare" rows="10" cols="30" style=";height:200px;width:400px;" readonly="readonly"></textarea>
+<!--<input type="button" id="zhixing" value="执行" onfocus = "down();" style=";height:100px;width:100px;" />-->
+<button  onclick="down();" style=";height:100px;width:100px;" >执行</button>
+</body>
+<script type="text/javascript">
+    var count = 0
+    function down(){
+        http_send();
+    }
+    function http_send(){
+        var xmlhttp;
+        document.getElementById("textare").innerHTML = "请等待"
+        if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {// code for IE6, IE5
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+// count += 1
+//            alert(document.getElementById("input_lang").value);
+
+//            document.getElementById("textare").innerHTML = count
+            document.getElementById("textare").innerHTML = xmlhttp.responseText
+            //alert("保存成功");
+        }
+        }
+//        encodeURI(document.getElementById("input_lang").value
+        //alert(document.getElementById("input_lang").value);
+        xmlhttp.open("GET","http://127.0.0.1:5000/index?lang="+encodeURIComponent(document.getElementById("input_lang").value),true);
+        xmlhttp.send();
+//        alert("sssssss")
+
+    }
+//document.getElementById("zhixing")
+
+</script>
+</body>
+</html>
